@@ -1,3 +1,4 @@
+Updated On: **8-June-2021**
 Current Version: **V1.1**
 
 # Desktop App - Vaccine Availability Checker
