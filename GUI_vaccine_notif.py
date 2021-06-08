@@ -1,20 +1,23 @@
 
 # Import modules
 from tkinter import *
-from tkinter import ttk  # themed tk
+# from tkinter import ttk  # themed tk
 from tkinter import messagebox
-import subprocess
+# import subprocess
 from datetime import datetime
-import pytz, time
+import pytz
 import requests
 
+
+software_version = 'v1.1'
 IST = pytz.timezone('Asia/Kolkata')
+
 
 app = Tk()
 
 # App Geometry and components
 app.geometry("700x480+400+200")
-app.title("Vaccine Availability Checker")
+app.title(f"Vaccine Availability Checker  {software_version}")
 app.iconbitmap("Images_Icons\covid-vaccine.ico")
 app.resizable(True, True)
 app.config(background = '#293241')
