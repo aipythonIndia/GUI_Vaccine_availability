@@ -2,6 +2,8 @@ Updated On: **8-June-2021**
 
 Current Version: **V1.1**
 
+https://img.shields.io/badge/release-v1.1-blueviolet
+
 -------------------------------
 
 # Desktop App - Vaccine Availability Checker
