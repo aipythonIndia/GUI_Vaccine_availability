@@ -1,9 +1,7 @@
 
 # Import modules
 from tkinter import *
-# from tkinter import ttk  # themed tk
 from tkinter import messagebox
-# import subprocess
 from datetime import datetime
 import pytz
 import requests
