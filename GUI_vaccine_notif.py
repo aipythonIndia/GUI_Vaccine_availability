@@ -86,18 +86,18 @@ result_box_D2 = Text(app, height = 20, width = 7, bg='#293241',fg='#ecfcff', rel
 result_box_D2.place(x= 555 , y= 152)
 result_box_D1_D2 = Text(app, height = 20, width = 7, bg='#293241',fg='#ecfcff', relief=FLAT, font='verdana 10')
 result_box_D1_D2.place(x= 630 , y= 152)
+
 ## Defining Functions
 
 # Detect Automatic Pincode
-# def fill_pincode_with_radio():
-#     curr_pincode = get_pincode_ip_service(url)
-#     pincode_text_var.set(curr_pincode)
+def fill_pincode_with_radio():
+    curr_pincode = get_pincode_ip_service(url)
+    pincode_text_var.set(curr_pincode)
 
-# url = 'https://ipinfo.io/postal'
-# def get_pincode_ip_service(url):
-#     import requests
-#     response_pincode = requests.get(url).text
-#     return response_pincode
+url = 'https://ipinfo.io/postal'
+def get_pincode_ip_service(url):
+    response_pincode = requests.get(url).text
+    return response_pincode
 
 def update_clock():
     raw_TS = datetime.now(IST)
@@ -135,57 +135,63 @@ def search_vaccine_avl():
     clear_result_box()
     PINCODE = pincode_text_var.get()
     DATE = date_text_var.get()
-    # print (PINCODE, DATE)
     resp_JSON = refresh_api_call(PINCODE, DATE)
-    # print (resp_JSON)
-    for sess in resp_JSON['sessions']:
-        age_limit           = sess['min_age_limit']
-        center_name         = sess['name']
-        pincode             = sess['pincode']
-        vaccine_name        = sess['vaccine']
-        available_capacity  = sess['available_capacity']
-        qnty_dose_1         = sess['available_capacity_dose1']
-        qnty_dose_2         = sess['available_capacity_dose2']
-        slot_date           = sess['date']
 
-        if available_capacity > 0:
-            curr_status = 'Available'
-        else:
-            curr_status = 'NA'
-        
-        if age_limit == 45:
-            age_grp = '45+'
-        else:
-            age_grp = '18-44'
+    try:
+        if len(resp_JSON['sessions']) == 0:
+            messagebox.showinfo("INFO","Vaccine not yet arrived for the given date")
 
-        '''
-        This is not the optimized approach but for the time being I could able to find this alternative solution.
-        Somehow, the center name is getting aligned but at the same time it is not limiting itself in the specified area
-        rather, it disturb the alignment of the next column (age group). Therefore, I have to create separate columns for
-        each entity. The issue with this approach is, each column is scrolling separately which is kind of mess while 
-        dealing with more rows.
-        There is a solution, however, which is to make a frame and make this as root of all the textbox and also create
-        a vertical scrollbar fixed to that root frame- that will scroll of of them together.
-        '''
+        for sess in resp_JSON['sessions']:
+            age_limit           = sess['min_age_limit']
+            center_name         = sess['name']
+            pincode             = sess['pincode']
+            vaccine_name        = sess['vaccine']
+            available_capacity  = sess['available_capacity']
+            qnty_dose_1         = sess['available_capacity_dose1']
+            qnty_dose_2         = sess['available_capacity_dose2']
+            slot_date           = sess['date']
 
-        # data_msg = f" {curr_status:<12}{center_name:<35.30}{age_grp:^20}{vaccine_name: ^10}{qnty_dose_1:^5}{qnty_dose_2:^5}\n"
-        # data_msg = "{0:<12}{1:<40}{2:<10}{3:<10}{4:<5}{5:<5}\n".format(curr_status,center_name,age_grp,vaccine_name,qnty_dose_1,qnty_dose_2)
-        # result_box.insert(END, " {0:<10s} {1:<30.28s}    {2:<10s} {3:<14s}  {4:<5} {5:<5} {6:^8}\n".format(curr_status,center_name,str(age_grp),vaccine_name,str(qnty_dose_1),str(qnty_dose_2), available_capacity))
-        # result_box.insert(END, str.rjust(age_grp, 8))
-        result_box_avl.insert(END, f"{curr_status:^6s}")
-        result_box_avl.insert(END,"\n")
-        result_box_cent.insert(END, f"{center_name:<30s}")
-        result_box_cent.insert(END,"\n")
-        result_box_age.insert(END, f"{age_grp:<6s}")
-        result_box_age.insert(END,"\n")
-        result_box_vacc.insert(END, f"{vaccine_name:<8s}")
-        result_box_vacc.insert(END,"\n")
-        result_box_D1.insert(END, f"{qnty_dose_1:>5}")
-        result_box_D1.insert(END,"\n")
-        result_box_D2.insert(END, f"{qnty_dose_2:>5}")
-        result_box_D2.insert(END,"\n")
-        result_box_D1_D2.insert(END, f"{available_capacity:<5}")
-        result_box_D1_D2.insert(END,"\n")
+            if available_capacity > 0:
+                curr_status = 'Available'
+            else:
+                curr_status = 'NA'
+            
+            if age_limit == 45:
+                age_grp = '45+'
+            else:
+                age_grp = '18-44'
+
+            '''
+            This is not the optimized approach but for the time being I could able to find this alternative solution.
+            Somehow, the center name is getting aligned but at the same time it is not limiting itself in the specified area
+            rather, it disturb the alignment of the next column (age group). Therefore, I have to create separate columns for
+            each entity. The issue with this approach is, each column is scrolling separately which is kind of mess while 
+            dealing with more rows.
+            There is a solution, however, which is to make a frame and make this as root of all the textbox and also create
+            a vertical scrollbar fixed to that root frame- that will scroll of of them together.
+            '''
+
+            # data_msg = f" {curr_status:<12}{center_name:<35.30}{age_grp:^20}{vaccine_name: ^10}{qnty_dose_1:^5}{qnty_dose_2:^5}\n"
+            # data_msg = "{0:<12}{1:<40}{2:<10}{3:<10}{4:<5}{5:<5}\n".format(curr_status,center_name,age_grp,vaccine_name,qnty_dose_1,qnty_dose_2)
+            # result_box.insert(END, " {0:<10s} {1:<30.28s}    {2:<10s} {3:<14s}  {4:<5} {5:<5} {6:^8}\n".format(curr_status,center_name,str(age_grp),vaccine_name,str(qnty_dose_1),str(qnty_dose_2), available_capacity))
+            # result_box.insert(END, str.rjust(age_grp, 8))
+            result_box_avl.insert(END, f"{curr_status:^6s}")
+            result_box_avl.insert(END,"\n")
+            result_box_cent.insert(END, f"{center_name:<30s}")
+            result_box_cent.insert(END,"\n")
+            result_box_age.insert(END, f"{age_grp:<6s}")
+            result_box_age.insert(END,"\n")
+            result_box_vacc.insert(END, f"{vaccine_name:<8s}")
+            result_box_vacc.insert(END,"\n")
+            result_box_D1.insert(END, f"{qnty_dose_1:>5}")
+            result_box_D1.insert(END,"\n")
+            result_box_D2.insert(END, f"{qnty_dose_2:>5}")
+            result_box_D2.insert(END,"\n")
+            result_box_D1_D2.insert(END, f"{available_capacity:<5}")
+            result_box_D1_D2.insert(END,"\n")
+    except KeyError as KE:
+        messagebox.showerror("ERROR","No Available center(s) for the given Pincode and date")
+        print (pincode_text_var.get())
 
 # Buttons
 search_vaccine_image = PhotoImage(file= "Images_Icons\search-icon.png")
@@ -194,7 +200,7 @@ search_vaccine_btn.place(x = 600,y = 25)
 
 # Radio Buttons
 curr_loc_var = StringVar()
-radio_location = Radiobutton(app, text="Current location", bg= top_right_frame_bg, variable= curr_loc_var, value = curr_loc_var, command = '', state=DISABLED)
+radio_location = Radiobutton(app, text="Current location", bg= top_right_frame_bg, variable= curr_loc_var, value = curr_loc_var, command = fill_pincode_with_radio) #state=DISABLED
 radio_location.place(x=215, y=65)
 
 # Check Box 
@@ -203,7 +209,7 @@ today_date_chkbox = Checkbutton(app, text='Today', bg= top_right_frame_bg, varia
 today_date_chkbox.place(x= 375, y= 65)
 
 chkbox_tomorrow_var = IntVar()
-tomorrow_date_chkbox = Checkbutton(app, text='Tomorrow', bg= top_right_frame_bg, variable=chkbox_tomorrow_var, onvalue= 1, offvalue=0)
+tomorrow_date_chkbox = Checkbutton(app, text='Tomorrow', bg= top_right_frame_bg, variable=chkbox_tomorrow_var, onvalue= 1, offvalue=0, state = DISABLED)
 tomorrow_date_chkbox.place(x= 435, y= 65)
 
 update_clock()
