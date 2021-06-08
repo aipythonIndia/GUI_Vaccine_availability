@@ -162,15 +162,6 @@ def search_vaccine_avl():
         # data_msg = "{0:<12}{1:<40}{2:<10}{3:<10}{4:<5}{5:<5}\n".format(curr_status,center_name,age_grp,vaccine_name,qnty_dose_1,qnty_dose_2)
         # result_box.insert(END, " {0:<10s} {1:<30.28s}    {2:<10s} {3:<14s}  {4:<5} {5:<5} {6:^8}\n".format(curr_status,center_name,str(age_grp),vaccine_name,str(qnty_dose_1),str(qnty_dose_2), available_capacity))
         # result_box.insert(END, str.rjust(age_grp, 8))
-        '''
-        This is not the optimized approach but for the time being I could able to find this alternative solution.
-        Somehow, the center name is getting aligned but at the same time it is not limiting itself in the specified area
-        rather, it disturb the alignment of the next column (age group). Therefore, I have to create separate columns for
-        each entity. The issue with this approach is, each column is scrolling separately which is kind of mess while 
-        dealing with more rows.
-        There is a solution, however, which is to make a frame and make this as root of all the textbox and also create
-        a vertical scrollbar fixed to that root frame- that will scroll of of them together.
-        '''
         result_box_avl.insert(END, f"{curr_status:^6s}")
         result_box_avl.insert(END,"\n")
         result_box_cent.insert(END, f"{center_name:<30s}")
