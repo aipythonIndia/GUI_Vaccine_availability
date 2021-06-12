@@ -134,7 +134,7 @@ def clear_result_box():
 
 def search_vaccine_avl():
     clear_result_box()
-    PINCODE = pincode_text_var.get()
+    PINCODE = pincode_text_var.get().strip()
     DATE = date_text_var.get()
     resp_JSON = refresh_api_call(PINCODE, DATE)
 
