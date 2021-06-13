@@ -14,10 +14,10 @@ IST = pytz.timezone('Asia/Kolkata')
 app = Tk()
 
 # App Geometry and components
-app.geometry("700x480+400+200")
+app.geometry("700x480+600+300")
 app.title(f"Vaccine Availability Checker  {software_version}")
 app.iconbitmap("Images_Icons\covid-vaccine.ico")
-app.resizable(True, True)
+app.resizable(False, True)
 app.config(background = '#293241')
 
 ## DEFAULT values
@@ -72,7 +72,7 @@ date_textbox['textvariable'] = date_text_var
 date_textbox.place(x= 380, y=40)
 
 
-## TEXT BOX
+## TEXT BOX - for RESULTs
 result_box_avl = Text(app, height = 20, width = 8, bg='#293241',fg='#ecfcff', relief=FLAT, font='verdana 10')
 result_box_avl.place(x= 3 , y= 152)
 result_box_cent = Text(app, height = 20, width = 30, bg='#293241',fg='#ecfcff', relief=FLAT, font='verdana 10')
@@ -87,6 +87,7 @@ result_box_D2 = Text(app, height = 20, width = 7, bg='#293241',fg='#ecfcff', rel
 result_box_D2.place(x= 555 , y= 152)
 result_box_D1_D2 = Text(app, height = 20, width = 7, bg='#293241',fg='#ecfcff', relief=FLAT, font='verdana 10')
 result_box_D1_D2.place(x= 630 , y= 152)
+
 
 ## Defining Functions
 
@@ -178,7 +179,7 @@ def search_vaccine_avl():
             # result_box.insert(END, str.rjust(age_grp, 8))
             result_box_avl.insert(END, f"{curr_status:^6s}")
             result_box_avl.insert(END,"\n")
-            result_box_cent.insert(END, f"{center_name:<30s}")
+            result_box_cent.insert(END, f"{center_name:<30.29s}")
             result_box_cent.insert(END,"\n")
             result_box_age.insert(END, f"{age_grp:<6s}")
             result_box_age.insert(END,"\n")
