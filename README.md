@@ -9,6 +9,7 @@ Facebook (Group): https://www.facebook.com/groups/aipython <br>
 Instagram: https://www.instagram.com/aipython_india <br>
 Twitter  : https://twitter.com/aipython_India <br>
 LinkedIn : https://www.linkedin.com/in/aipythonIndia/ <br>
+YouTube : https://www.youtube.com/aipython <br>
 
 
 # Desktop App - Vaccine Availability Checker
